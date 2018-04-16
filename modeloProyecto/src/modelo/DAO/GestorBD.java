@@ -39,9 +39,9 @@ public class GestorBD {
         }
     }
     
-    private static final String BASE_DATOS = "bancoempleo";
+    private static final String BASE_DATOS = "bancoEmpleo";
     private static final String USUARIO = "root";
-    private static final String CLAVE = "root";
+    private static final String CLAVE = "admin";
 
     private DBManager bd = null;
     private static GestorBD instancia = null;

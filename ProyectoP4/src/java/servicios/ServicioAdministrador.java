@@ -1,21 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servicios;
 
 import java.io.IOException;
-import java.util.Date;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.DAO.ConjuntoEmpresas;
-import modelo.Empresa;
 
 /**
  *
  * @author krist
  */
-@WebServlet(name = "RegistroEmpresa", urlPatterns = {"/RegistroEmpresa"})
-public class RegistroEmpresa extends HttpServlet {
+@WebServlet(name = "ServicioAdministrador", urlPatterns = {"/ServicioAdministrador"})
+public class ServicioAdministrador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,20 +31,31 @@ public class RegistroEmpresa extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        int id_empresa = Integer.parseInt(request.getParameter("id_empresa"));
-        String nombre = request.getParameter("nombre");
-        String localizacion = request.getParameter("localizacion");
-        String correo = request.getParameter("correo");
-        int telefono = Integer.parseInt(request.getParameter("telefono"));
-        String descripcion = request.getParameter("descripcion");
-        String clave = request.getParameter("clave");
-        java.util.Date fecha = new Date();
-
-        Empresa e = new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, 0, 2);
-        // 0 = Estado en espera, 2 = Tipo de Usuario -> Empresa
-        ConjuntoEmpresas.obtenerInstancia().agregar(e);
-        response.sendRedirect("Empresa.jsp");
+        int opcion;
+        try{
+            opcion = Integer.parseInt(request.getParameter("opcionA"));
+        }catch(Exception ex){
+            opcion = 0;
+        }
+        if(opcion==1){
+            //Agrega una nueva categoria
+            modelo.Elementos.administrador_trabajando=1;
+            response.sendRedirect("CrearCategoria.jsp");
+        }
+        else if(opcion==2){
+            response.sendRedirect("ElegirCategoria.jsp");
+        }
+        else if(opcion==3){
+            modelo.Elementos.administrador_autorizando=1;
+            response.sendRedirect("AutorizarEmpresa.jsp");
+        }
+        else if(opcion==4){
+            modelo.Elementos.administrador_autorizando=2;
+            response.sendRedirect("AutorizarOferente.jsp");
+        }
+        else{
+            response.sendRedirect("Administrador.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

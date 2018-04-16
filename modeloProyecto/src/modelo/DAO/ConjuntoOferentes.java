@@ -167,6 +167,27 @@ public class ConjuntoOferentes implements Serializable{
          return exito;
     }
     
+    public boolean verificarOferente(String usuario, String clave) {
+
+        boolean encontrado = false;
+        try {
+            Connection cnx
+                    = GestorBD.obtenerInstancia().obtenerConexion();
+
+            try (PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR)) {
+                stm.clearParameters();
+                stm.setString(1, usuario);
+                stm.setString(2, clave);
+                ResultSet rs = stm.executeQuery();
+                encontrado = rs.next();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        } 
+        return encontrado;
+    }
+    
      private static final String CMD_LISTAR
             = "SELECT id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, estado, usuario "
             + "FROM bancoempleo.oferente ORDER BY id_oferente DESC; ";
@@ -183,6 +204,10 @@ public class ConjuntoOferentes implements Serializable{
      
      private static final String CMD_ACTUALIZAR
             = "UPDATE oferente SET estado=? WHERE id_oferente=?;";
+     
+     private static final String CMD_VERIFICAR
+            = "SELECT bancoemple.oferente.ai_oferente FROM bancoempleo.oferente "
+            + "WHERE oferente.correo=? AND clave=? ";
      
     private static ConjuntoOferentes instancia = null;
 }

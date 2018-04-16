@@ -6,6 +6,14 @@ package modelo;
  */
 public class Oferente {
 
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
     public Oferente(int id_oferente, String nombre_oferente, String primer_apellido, String nacionalidad, int telefono, String correo, String residencia, int estado, int usuario) {
         this.id_oferente = id_oferente;
         this.nombre_oferente = nombre_oferente;
@@ -16,6 +24,7 @@ public class Oferente {
         this.residencia = residencia;
         this.estado = estado;
         this.usuario = usuario;
+        this.clave = null;
     }
     
     @Override
@@ -152,6 +161,7 @@ public class Oferente {
     private int telefono;
     private String correo;
     private String residencia;
+    private String clave;
     private int estado;
     private int usuario;
 }

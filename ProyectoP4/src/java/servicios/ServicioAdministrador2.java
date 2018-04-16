@@ -1,21 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servicios;
 
 import java.io.IOException;
-import java.util.Date;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.DAO.ConjuntoEmpresas;
-import modelo.Empresa;
 
 /**
  *
  * @author krist
  */
-@WebServlet(name = "RegistroEmpresa", urlPatterns = {"/RegistroEmpresa"})
-public class RegistroEmpresa extends HttpServlet {
+@WebServlet(name = "ServicioAdministrador2", urlPatterns = {"/ServicioAdministrador2"})
+public class ServicioAdministrador2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,20 +31,21 @@ public class RegistroEmpresa extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int bandera = 0;
+        int eleccion = 0;
+        try {
+            Integer.parseInt(request.getParameter("categorias"));
+            bandera = 1;
+        } catch (Exception ex) {
+            response.sendRedirect("Administrador.jsp");
+        }
+        if (bandera == 1) {
+            eleccion = Integer.parseInt(request.getParameter("categorias"));
+            modelo.Elementos.id_Categoria_Requerido = eleccion;
+            modelo.Elementos.administrador_trabajando = 2;//Administrador trabajando en subCategoria
+            response.sendRedirect("CrearSubCategoria.jsp");
+        }
 
-        int id_empresa = Integer.parseInt(request.getParameter("id_empresa"));
-        String nombre = request.getParameter("nombre");
-        String localizacion = request.getParameter("localizacion");
-        String correo = request.getParameter("correo");
-        int telefono = Integer.parseInt(request.getParameter("telefono"));
-        String descripcion = request.getParameter("descripcion");
-        String clave = request.getParameter("clave");
-        java.util.Date fecha = new Date();
-
-        Empresa e = new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, 0, 2);
-        // 0 = Estado en espera, 2 = Tipo de Usuario -> Empresa
-        ConjuntoEmpresas.obtenerInstancia().agregar(e);
-        response.sendRedirect("Empresa.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
