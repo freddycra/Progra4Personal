@@ -3,6 +3,7 @@ package modelo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 public class Empresa {
 
-    public Empresa(int id_empresa, String nombre_empresa, String localizacion, String correo, int telefono, String descripcion, String clave, Date fecha_registro, int estado, int usuario) {
+    public Empresa(int id_empresa, String nombre_empresa, String localizacion, String correo, int telefono, String descripcion, String clave, Date fecha_registro, int usuario) {
         this.id_empresa = id_empresa;
         this.nombre_empresa = nombre_empresa;
         this.localizacion = localizacion;
@@ -19,15 +20,14 @@ public class Empresa {
         this.descripcion = descripcion;
         this.clave = clave;
         this.fecha_registro = fecha_registro;
-        this.estado = estado;
         this.usuario = usuario;
     }
-
+    
     @Override
     public String toString() {
         return String.format("\n{Id: %d\nNombre: %s\nLocalizacion: %s\nCorreo: %s\nTelefono: %d\nDescripcion: %s\n"
-                + "Clave: %s\nFecha Inscripcion: %s\nEstado: %d\nUsuario: %d\n",
-                id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro.toString(), estado, usuario);
+                + "Clave: %s\nFecha Inscripcion: %s\nUsuario: %d\n", 
+                id_empresa, nombre_empresa, localizacion, correo, telefono,descripcion, clave, fecha_registro.toString(), usuario);
     }
 
     public int getId_empresa() {
@@ -102,72 +102,34 @@ public class Empresa {
         this.usuario = usuario;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
-    public static DateFormat getDf() {
-        return df;
-    }
-
-    public static void setDf(DateFormat df) {
-        Empresa.df = df;
-    }
-
-    public String convertirEstado() {
-        String e = "";
-        if (estado == 0) {
-            e = "En Espera";
-        } else if (estado == 1) {
-            e = "Rechazado";
-        } else if (estado == 2) {
-            e = "Aprobado";
-        }
-        return e;
-    }
-    
-    public String tipoUsuario(){
-        if(usuario==2){
-        return "Empresa";
-        }else{
-            return "Desconocido";
-        }
-    }
-
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th class=\"encabezado\">Id_Empresa</th>");
-        r.append("<th class=\"encabezado\">Nombre</th>");
-        r.append("<th class=\"encabezado\">Localizacion</th>");
-        r.append("<th class=\"encabezado\">Correo</th>");
-        r.append("<th class=\"encabezado\">Telefono</th>");
-        r.append("<th class=\"encabezado\">Descripcion</th>");
-        r.append("<th class=\"encabezado\">Clave</th>");
-        r.append("<th class=\"encabezado\">Fecha Registro</th>");
-        r.append("<th class=\"encabezado\">Estado</th>");
-        r.append("<th class=\"encabezado\">Tipo Usuario</th>");
+        r.append("<th>Id_Empresa</th>");
+        r.append("<th>Nombre</th>");
+        r.append("<th>Localizacion</th>");
+        r.append("<th>Correo</th>");
+        r.append("<th>Telefono</th>");
+        r.append("<th>Descripcion</th>");
+        r.append("<th>Clave</th>");
+        r.append("<th>Fecha Registro</th>");
+        r.append("<th>Tipo Usuario</th>");
         return r.toString();
     }
-
+    
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td class=\"campo\">%d</td>", id_empresa));
-        r.append(String.format("<td class=\"campo\">%s</td>", nombre_empresa));
-        r.append(String.format("<td class=\"campo\">%s</td>", localizacion));
-        r.append(String.format("<td class=\"campo\">%s</td>", correo));
-        r.append(String.format("<td class=\"campo\">%d</td>", telefono));
-        r.append(String.format("<td class=\"campo\">%s</td>", descripcion));
-        r.append(String.format("<td class=\"campo\">%s</td>", clave));
-        r.append(String.format("<td class=\"campo\">%s</td>", df.format(fecha_registro)));
-        r.append(String.format("<td class=\"campo\">%s</td>", convertirEstado()));
-        r.append(String.format("<td class=\"campo\">%s</td>", tipoUsuario()));
+        r.append(String.format("<td>%d</td>", id_empresa));
+        r.append(String.format("<td>%s</td>", nombre_empresa));
+        r.append(String.format("<td>%s</td>", localizacion));
+        r.append(String.format("<td>%s</td>", correo));
+        r.append(String.format("<td>%d</td>", telefono));
+        r.append(String.format("<td>%s</td>", descripcion));
+        r.append(String.format("<td>%s</td>", clave));
+        r.append(String.format("<td>%s</td>", df.format(fecha_registro)));
+        r.append(String.format("<td>%d</td>", usuario));
         return r.toString();
     }
-
+    
     private int id_empresa;
     private String nombre_empresa;
     private String localizacion;
@@ -176,8 +138,7 @@ public class Empresa {
     private String descripcion;
     private String clave;
     private Date fecha_registro;
-    private int estado;
     private int usuario;
-
+    
     private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm");
 }

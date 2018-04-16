@@ -69,9 +69,8 @@ public class ConjuntoEmpresas implements Serializable{
                     String descripcion = rs.getString("descripcion");
                     String clave = rs.getString("clave");
                     java.util.Date fecha = new java.util.Date(rs.getTimestamp("fecha_registro").getTime());
-                    int estado = rs.getInt("estado");
                     int usuario = rs.getInt("usuario");
-                    empresas.add(new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, estado,usuario));
+                    empresas.add(new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, usuario));
                 }
             }
             return empresas;
@@ -83,7 +82,7 @@ public class ConjuntoEmpresas implements Serializable{
 
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table class=\"tabla\">");
+        r.append("\n<table>");
         r.append("\n<thead><tr>");
         r.append(Empresa.encabezadosHTML());
         r.append("\n</tr></thead>");
@@ -100,7 +99,7 @@ public class ConjuntoEmpresas implements Serializable{
     }
     
     private static final String CMD_LISTAR
-            = "SELECT id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro, estado, usuario "
+            = "SELECT id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro, usuario "
             + "FROM bancoempleo.empresa ORDER BY id_empresa DESC; ";
     
     private static final String CMD_AGREGAR

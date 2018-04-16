@@ -29,7 +29,6 @@ public class RegistroPuesto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
         String nombre = request.getParameter("nombreP");
         String descripcion = request.getParameter("descripcionP");
         int salario = Integer.parseInt(request.getParameter("salarioP"));
@@ -37,7 +36,7 @@ public class RegistroPuesto extends HttpServlet {
         int estado = Integer.parseInt(request.getParameter("opcionP2"));
         
         int id_puesto = (ConjuntoPuestos.obtenerInstancia().obtenerMayorId() + 1);
-        Puesto p = new Puesto(id_puesto,nombre, descripcion, salario, tipo, estado, idEmpresa);//El id de empresa se automatiza luego
+        Puesto p = new Puesto(id_puesto,nombre, descripcion, salario, tipo, estado, 1);//El tipo de empresa se automatiza luego
         ConjuntoPuestos.obtenerInstancia().agregar(p);
         
         RequestDispatcher rd;

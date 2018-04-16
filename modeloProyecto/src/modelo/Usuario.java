@@ -38,26 +38,15 @@ public class Usuario {
     
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th class=\"encabezado\">Id_Usuario</th>");
-        r.append("<th class=\"encabezado\">Tipo Usuario</th>");
+        r.append("<th>Id_Usuario</th>");
+        r.append("<th>Tipo Usuario</th>");
         return r.toString();
-    }
-    
-    public String convertirUsuario(){
-        switch (tipo_usuario) {
-            case 1:
-                return "Administrador";
-            case 2:
-                return "Empresa";
-            default:
-                return "Oferente";
-        }
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td class=\"campo\">%d</td>", id_usuario));
-        r.append(String.format("<td class=\"campo\">%s</td>", convertirUsuario()));
+        r.append(String.format("<td>%d</td>", id_usuario));
+        r.append(String.format("<td>%d</td>", tipo_usuario));
         return r.toString();
     }
     

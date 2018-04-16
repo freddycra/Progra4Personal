@@ -39,8 +39,7 @@ public class RegistroEmpresa extends HttpServlet {
         String clave = request.getParameter("clave");
         java.util.Date fecha = new Date();
         
-        Empresa e = new Empresa(id_empresa,nombre,localizacion,correo,telefono,descripcion,clave, fecha, 0,2);
-        // 0 = Estado en espera, 2 = Tipo de Usuario -> Empresa
+        Empresa e = new Empresa(id_empresa,nombre,localizacion,correo,telefono,descripcion,clave, fecha, 2);
         ConjuntoEmpresas.obtenerInstancia().agregar(e);
         response.sendRedirect("Empresa.jsp");
     }

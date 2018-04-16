@@ -71,7 +71,7 @@ public class ConjuntoAdministradores implements Serializable {
 
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table class=\"tabla\">");
+        r.append("\n<table>");
         r.append("\n<thead><tr>");
         r.append(Administrador.encabezadosHTML());
         r.append("\n</tr></thead>");

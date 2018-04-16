@@ -106,43 +106,27 @@ public class Puesto {
         this.empresa = empresa;
     }
     
-    public String convertirTipo_Publicacion(){
-        if(tipo_publicacion==0){
-            return "Publico";
-        }else{
-            return "Privado";
-        }
-    }
-    
-    public String convertirEstado_Publicacion(){
-        if(estado_publicacion==0){
-            return "Disponible";
-        }else{
-            return "Ocupado";
-        }
-    }
-    
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th class=\"encabezado\">Id_Puesto</th>");
-        r.append("<th class=\"encabezado\">Nombre Puesto</th>");
-        r.append("<th class=\"encabezado\">Descripcion</th>");
-        r.append("<th class=\"encabezado\">Salario Ofrecido</th>");
-        r.append("<th class=\"encabezado\">Tipo Publicacion</th>");
-        r.append("<th class=\"encabezado\">Estado de Publicacion</th>");
-        r.append("<th class=\"encabezado\">Id de Empresa</th>");
+        r.append("<th>Id_Puesto</th>");
+        r.append("<th>Nombre Puesto</th>");
+        r.append("<th>Descripcion</th>");
+        r.append("<th>Salario Ofrecido</th>");
+        r.append("<th>Tipo Publicacion</th>");
+        r.append("<th>Estado de Publicacion</th>");
+        r.append("<th>Id de Empresa</th>");
         return r.toString();
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td class=\"campo\">%d</td>", id_puesto));
-        r.append(String.format("<td class=\"campo\">%s</td>", nombre_puesto));
-        r.append(String.format("<td class=\"campo\">%s</td>", descripcion));
-        r.append(String.format("<td class=\"campo\">%d</td>", salario_ofrecido));
-        r.append(String.format("<td class=\"campo\">%s</td>", convertirTipo_Publicacion()));
-        r.append(String.format("<td class=\"campo\">%s</td>", convertirEstado_Publicacion()));
-        r.append(String.format("<td class=\"campo\">%d</td>", empresa));
+        r.append(String.format("<td>%d</td>", id_puesto));
+        r.append(String.format("<td>%s</td>", nombre_puesto));
+        r.append(String.format("<td>%s</td>", descripcion));
+        r.append(String.format("<td>%d</td>", salario_ofrecido));
+        r.append(String.format("<td>%d</td>", tipo_publicacion));
+        r.append(String.format("<td>%d</td>", estado_publicacion));
+        r.append(String.format("<td>%d</td>", empresa));
         return r.toString();
     }
     

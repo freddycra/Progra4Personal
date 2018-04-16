@@ -6,7 +6,7 @@ package modelo;
  */
 public class Oferente {
 
-    public Oferente(int id_oferente, String nombre_oferente, String primer_apellido, String nacionalidad, int telefono, String correo, String residencia, int estado, int usuario) {
+    public Oferente(int id_oferente, String nombre_oferente, String primer_apellido, String nacionalidad, int telefono, String correo, String residencia, int usuario) {
         this.id_oferente = id_oferente;
         this.nombre_oferente = nombre_oferente;
         this.primer_apellido = primer_apellido;
@@ -14,15 +14,14 @@ public class Oferente {
         this.telefono = telefono;
         this.correo = correo;
         this.residencia = residencia;
-        this.estado = estado;
         this.usuario = usuario;
     }
     
     @Override
     public String toString() {
         return String.format("\n{Id: %d\nNombre: %s\nApellido: %s\nNacionalidad: %s\nTelefono: %d\n"
-                + "Correo: %s\nResidencia: %s\nEstado: %d\nUsuario: %d}\n"
-                , id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia,estado, usuario);
+                + "Correo: %s\nResidencia: %s\nUsuario: %d}\n"
+                , id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, usuario);
     }
     
     public int getId_oferente() {
@@ -88,60 +87,30 @@ public class Oferente {
     public void setUsuario(int usuario) {
         this.usuario = usuario;
     }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-    
-    public String convertirEstado() {
-        String e = "";
-        if (estado == 0) {
-            e = "En Espera";
-        } else if (estado == 1) {
-            e = "Rechazado";
-        } else if (estado == 2) {
-            e = "Aprobado";
-        }
-        return e;
-    }
-    
-    public String tipoUsuario(){
-        if(usuario==3){
-        return "Oferente";
-        }else{
-            return "Desconocido";
-        }
-    }
     
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th class=\"encabezado\">Id_Oferente</th>");
-        r.append("<th class=\"encabezado\">Nombre</th>");
-        r.append("<th class=\"encabezado\">Apellido</th>");
-        r.append("<th class=\"encabezado\">Nacionalidad</th>");
-        r.append("<th class=\"encabezado\">Telefono</th>");
-        r.append("<th class=\"encabezado\">Correo</th>");
-        r.append("<th class=\"encabezado\">Residencia</th>");
-        r.append("<th class=\"encabezado\">Estado</th>");
-        r.append("<th class=\"encabezado\">Tipo Usuario</th>");
+        r.append("<th>Id_Oferente</th>");
+        r.append("<th>Nombre</th>");
+        r.append("<th>Apellido</th>");
+        r.append("<th>Nacionalidad</th>");
+        r.append("<th>Telefono</th>");
+        r.append("<th>Correo</th>");
+        r.append("<th>Residencia</th>");
+        r.append("<th>Tipo Usuario</th>");
         return r.toString();
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td class=\"campo\">%d</td>", id_oferente));
-        r.append(String.format("<td class=\"campo\">%s</td>", nombre_oferente));
-        r.append(String.format("<td class=\"campo\">%s</td>", primer_apellido));
-        r.append(String.format("<td class=\"campo\">%s</td>", nacionalidad));
-        r.append(String.format("<td class=\"campo\">%d</td>", telefono));
-        r.append(String.format("<td class=\"campo\">%s</td>", correo));
-        r.append(String.format("<td class=\"campo\">%s</td>", residencia));
-        r.append(String.format("<td class=\"campo\">%s</td>", convertirEstado()));
-        r.append(String.format("<td class=\"campo\">%s</td>", tipoUsuario()));
+        r.append(String.format("<td>%d</td>", id_oferente));
+        r.append(String.format("<td>%s</td>", nombre_oferente));
+        r.append(String.format("<td>%s</td>", primer_apellido));
+        r.append(String.format("<td>%s</td>", nacionalidad));
+        r.append(String.format("<td>%d</td>", telefono));
+        r.append(String.format("<td>%s</td>", correo));
+        r.append(String.format("<td>%s</td>", residencia));
+        r.append(String.format("<td>%d</td>", usuario));
         return r.toString();
     }
 
@@ -152,6 +121,5 @@ public class Oferente {
     private int telefono;
     private String correo;
     private String residencia;
-    private int estado;
     private int usuario;
 }

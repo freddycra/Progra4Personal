@@ -69,7 +69,7 @@ public class ConjuntoCategorias implements Serializable{
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table class=\"tabla\">");
+        r.append("\n<table>");
         r.append("\n<thead><tr>");
         r.append(Categoria.encabezadosHTML());
         r.append("\n</tr></thead>");
@@ -83,25 +83,6 @@ public class ConjuntoCategorias implements Serializable{
         r.append("\n</tbody>");
         r.append("\n</table>");
         return r.toString();
-    }
-    
-    public int obtenerMayorId() {
-        int puesto = 0;
-        try {
-            try (Connection cnx = GestorBD.obtenerInstancia().obtenerConexion();
-                    PreparedStatement stm = cnx.prepareStatement(CMD_ULTIMO_ID)) {
-                stm.clearParameters();
-                try (ResultSet rs = stm.executeQuery()) {
-                    if (rs.next()) {
-                        puesto = rs.getInt("id_categoria");
-                    }
-                }
-            }     
-            return puesto;
-        } catch (SQLException ex) {
-            System.err.printf("Excepción: '%s'\n", ex.getMessage());
-        }
-        return puesto;
     }
     
     public static String menuCategoriasHTML() {
@@ -124,10 +105,6 @@ public class ConjuntoCategorias implements Serializable{
             = "INSERT INTO bancoempleo.categoria "
             + "(id_categoria, nombre_categoria) "
             + "VALUES(?, ?); ";
-    
-    private static final String CMD_ULTIMO_ID
-            = "SELECT id_categoria "
-            + "FROM bancoempleo.categoria " + " where id_categoria = (select max(id_categoria) from categoria); ";
     
     private static ConjuntoCategorias instancia = null;
 }

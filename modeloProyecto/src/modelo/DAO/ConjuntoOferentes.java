@@ -67,9 +67,8 @@ public class ConjuntoOferentes implements Serializable{
                     int telefono = rs.getInt("telefono");
                     String correo = rs.getString("correo");
                     String residencia = rs.getString("residencia");
-                    int estado = rs.getInt("estado");
                     int usuario = rs.getInt("usuario");
-                    oferentes.add(new Oferente(id_oferente, nombre, primerApellido, nacionalidad, telefono, correo, residencia, estado,usuario));
+                    oferentes.add(new Oferente(id_oferente, nombre, primerApellido, nacionalidad, telefono, correo, residencia, usuario));
                 }
             }
             return oferentes;
@@ -81,7 +80,7 @@ public class ConjuntoOferentes implements Serializable{
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table class=\"tabla\">");
+        r.append("\n<table>");
         r.append("\n<thead><tr>");
         r.append(Oferente.encabezadosHTML());
         r.append("\n</tr></thead>");
@@ -98,7 +97,7 @@ public class ConjuntoOferentes implements Serializable{
     }
     
      private static final String CMD_LISTAR
-            = "SELECT id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, estado, usuario "
+            = "SELECT id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, usuario "
             + "FROM bancoempleo.oferente ORDER BY id_oferente DESC; ";
      
      private static final String CMD_AGREGAR

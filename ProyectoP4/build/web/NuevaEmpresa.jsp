@@ -71,7 +71,7 @@
                     </table>
                 </form>
                 <section>
-                    <a href="Respuesta.jsp">Regresar</a>
+                    <a href="Empresa.jsp">Regresar</a>
                 </section>
             </div>
             <footer></footer>
