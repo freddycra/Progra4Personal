@@ -25,6 +25,13 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td class="etiqueta">Id de su empresa:</td>
+                                <td class="campo">
+                                    <input type="text" id="idEmpresa" name="idEmpresa" required />
+                                </td>
+                                <br/><br/>
+                            </tr>
+                            <tr>
                                 <td class="etiqueta">Nombre de puesto:</td>
                                 <td class="campo">
                                     <input type="text" id="nombreP" name="nombreP" required />
@@ -61,12 +68,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="etiqueta">Categoria</td>
-                            <td class="campo">
-                                <%out.print(modelo.DAO.ConjuntoCategorias.obtenerInstancia().toStringHTML());%>
-                            </td>
-                        </tr>
-                        <tr>
                             <td colspan="2">
                                 <input type="reset" value="Borrar" />
                                 <input type="submit" value="Registrar" />
@@ -76,7 +77,7 @@
                     </table>
                 </form>
                 <section>
-                    <a href="Respuesta.jsp">Regresar</a>
+                    <a href="Empresa.jsp">Regresar</a>
                 </section>
             </div>
             <footer></footer>

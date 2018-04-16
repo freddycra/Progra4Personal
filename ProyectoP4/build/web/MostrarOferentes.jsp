@@ -28,7 +28,7 @@
                 </p>
                 
                 <section>
-                    <a href="Empresa.jsp">Regresar</a>
+                    <a href="Respuesta.jsp">Regresar</a>
                 </section>
             </div>
             <footer></footer>

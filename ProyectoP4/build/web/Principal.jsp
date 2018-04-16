@@ -13,7 +13,7 @@
             <div id="contents">
                 <h1>Bienvenidos al Banco de Empleo</h1>
                 <form id="formulario1" action="Servicio" method="GET">
-                    <table id="tablaFormulario">
+                    <table>
                         <thead>
                             <tr>
                                 <th colspan="2">Elija su tipo de usuario:</th>
@@ -21,7 +21,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="campo">
+                                <td>
                                     <input type="radio" id="opcion_00" name="opcion" value="1" />
                                     <label for="opcion_00">Oferente</label><br />
                                     <input type="radio" id="opcion_01" name="opcion" value="2" />

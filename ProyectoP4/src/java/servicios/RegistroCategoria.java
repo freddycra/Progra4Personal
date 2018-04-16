@@ -40,10 +40,14 @@ public class RegistroCategoria extends HttpServlet {
         
         ConjuntoCategorias.obtenerInstancia().agregar(c);
         
+        if(modelo.Elementos.administrador_trabajando!=1){
         RequestDispatcher rd;
-        rd = request.getRequestDispatcher("/CrearSubCategoria.jsp");
+        rd = request.getRequestDispatcher("/CrearRequerimiento.jsp");
         request.setAttribute("id_categoria", id_categoria);//Ultima Categoria Creada
         rd.forward(request, response);
+        }else{
+            response.sendRedirect("Administrador.jsp");
+        }
 
     }
 

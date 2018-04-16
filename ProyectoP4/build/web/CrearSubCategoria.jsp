@@ -1,6 +1,6 @@
 <%-- 
     Document   : CrearSubCategoria
-    Created on : 15-abr-2018, 23:33:53
+    Created on : 16-abr-2018, 2:18:51
     Author     : krist
 --%>
 
@@ -20,7 +20,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th colspan="2">Registro de nueva area de Categoria:</th>
+                                <th colspan="2">Registro de nueva SubCategoria</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,12 +28,6 @@
                                 <td class="etiqueta">Nombre:</td>
                                 <td class="campo">
                                     <input type="text" id="nombreS" name="nombreS" required />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="etiqueta">Nivel de dominio deseado:</td>
-                                <td class="campo">
-                                    <input type="text" id="dominioS" name="dominioS" required />
                                 </td>
                             </tr>
                             <tr>

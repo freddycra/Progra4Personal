@@ -43,17 +43,17 @@ public class SubCategoria {
     
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th>Id_SubCategoria</th>");
-        r.append("<th>Nombre</th>");
-        r.append("<th>Categoria Perteneciente</th>");
+        r.append("<th class=\"encabezado\">Id_SubCategoria</th>");
+        r.append("<th class=\"encabezado\">Nombre</th>");
+        r.append("<th class=\"encabezado\">Categoria Perteneciente</th>");
         return r.toString();
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td>%d</td>", id_subCategoria));
-        r.append(String.format("<td>%s</td>", nombre_subCategoria));
-        r.append(String.format("<td>%d</td>", categoria));
+        r.append(String.format("<td class=\"campo\">%d</td>", id_subCategoria));
+        r.append(String.format("<td class=\"campo\">%s</td>", nombre_subCategoria));
+        r.append(String.format("<td class=\"campo\">%d</td>", categoria));
         return r.toString();
     }
     

@@ -44,7 +44,7 @@ public class Servicio extends HttpServlet {
             response.sendRedirect("Empresa.jsp");
         }
         else if(opcion==3){
-            response.sendRedirect("Administrador.jsp");
+            response.sendRedirect("VerificarAdministrador.jsp");
         }
         else if(opcion==4){
             response.sendRedirect("prueba.jsp");

@@ -71,7 +71,7 @@ public class ConjuntoAdministradores implements Serializable {
 
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table>");
+        r.append("\n<table class=\"tabla\">");
         r.append("\n<thead><tr>");
         r.append(Administrador.encabezadosHTML());
         r.append("\n</tr></thead>");
@@ -87,6 +87,33 @@ public class ConjuntoAdministradores implements Serializable {
         return r.toString();
     }
 
+    public Administrador recuperar(int id, String clave) {
+        Administrador r = null;
+        try {
+            try (Connection cnx = GestorBD.obtenerInstancia().obtenerConexion();
+                    PreparedStatement stm = cnx.prepareStatement(CMD_RECUPERAR)) {
+                stm.clearParameters();
+                stm.setInt(1, id);
+                stm.setString(2,clave);
+
+                try (ResultSet rs = stm.executeQuery()) {
+                    if (rs.next()) {
+                        r = new Administrador(
+                                rs.getInt("id_administrador"),
+                                rs.getString("nombre_administrador"),
+                                rs.getString("clave"),
+                                rs.getInt("usuario")
+                        );
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.printf("Excepción: '%s'%n",
+                    ex.getMessage());
+        }
+        return r;
+    }
+    
     private static final String CMD_LISTAR
             = "SELECT id_administrador,  nombre_administrador, clave, usuario "
             + "FROM bancoempleo.administrador ORDER BY id_administrador ASC; ";
@@ -96,5 +123,9 @@ public class ConjuntoAdministradores implements Serializable {
             + "(id_administrador, nombre_administrador, clave, usuario) "
             + "VALUES(?, ?, ?, ?); ";
 
+    private static final String CMD_RECUPERAR
+            = "SELECT id_administrador,  nombre_administrador, clave, usuario "+
+            "FROM bancoempleo.administrador WHERE id_administrador=? and clave=?; ";
+    
     private static ConjuntoAdministradores instancia = null;
 }

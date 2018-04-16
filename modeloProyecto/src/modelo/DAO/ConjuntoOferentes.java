@@ -67,8 +67,36 @@ public class ConjuntoOferentes implements Serializable{
                     int telefono = rs.getInt("telefono");
                     String correo = rs.getString("correo");
                     String residencia = rs.getString("residencia");
+                    int estado = rs.getInt("estado");
                     int usuario = rs.getInt("usuario");
-                    oferentes.add(new Oferente(id_oferente, nombre, primerApellido, nacionalidad, telefono, correo, residencia, usuario));
+                    oferentes.add(new Oferente(id_oferente, nombre, primerApellido, nacionalidad, telefono, correo, residencia, estado,usuario));
+                }
+            }
+            return oferentes;
+        }catch (SQLException ex) {
+            System.err.printf("Excepción: '%s'\n", ex.getMessage());
+        }
+        return oferentes;
+    }
+    
+    public List<Oferente> obtenerOferentesPendientes(){
+        List<Oferente> oferentes = new ArrayList<>();
+        try{
+            try(Connection cnx = GestorBD.obtenerInstancia().obtenerConexion();
+                    Statement stm = cnx.createStatement();
+                    ResultSet rs = stm.executeQuery(CMD_LISTAR_PENDIENTES)){
+                
+                while(rs.next()){
+                    int id_oferente = rs.getInt("id_oferente");
+                    String nombre = rs.getString("nombre_oferente");
+                    String primerApellido = rs.getString("primer_apellido");
+                    String nacionalidad = rs.getString("nacionalidad");
+                    int telefono = rs.getInt("telefono");
+                    String correo = rs.getString("correo");
+                    String residencia = rs.getString("residencia");
+                    int estado = rs.getInt("estado");
+                    int usuario = rs.getInt("usuario");
+                    oferentes.add(new Oferente(id_oferente, nombre, primerApellido, nacionalidad, telefono, correo, residencia, estado,usuario));
                 }
             }
             return oferentes;
@@ -80,7 +108,7 @@ public class ConjuntoOferentes implements Serializable{
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table>");
+        r.append("\n<table class=\"tabla\">");
         r.append("\n<thead><tr>");
         r.append(Oferente.encabezadosHTML());
         r.append("\n</tr></thead>");
@@ -96,14 +124,65 @@ public class ConjuntoOferentes implements Serializable{
         return r.toString();
     }
     
+    public String toStringHTMLPendientes() {
+        StringBuilder r = new StringBuilder();
+        r.append("\n<table class=\"tabla\">");
+        r.append("\n<thead><tr>");
+        r.append(Oferente.encabezadosHTML());
+        r.append("\n</tr></thead>");
+        r.append("\n<tbody>");
+        for (Oferente o : obtenerOferentesPendientes()) {
+            r.append(String.format(
+                    "\n\t<tr>%s</tr>",
+                    o.toStringHTML())
+            );
+        }
+        if(obtenerOferentesPendientes().isEmpty()){
+            r.append("\n<tr>");
+            r.append("\n<td>No hay Oferentes Pendientes</td>");
+            r.append("\n</tr>");
+        }
+        r.append("\n</tbody>");
+        r.append("\n</table>");
+        return r.toString();
+    }
+    
+    public boolean autorizar(int id, int estado) {
+        boolean exito = false;
+        try {  
+            try(Connection cnx = GestorBD.obtenerInstancia().obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR)){
+                stm.clearParameters();
+                stm.setInt(1, estado);
+                stm.setInt(2, id);
+
+                int r = stm.executeUpdate();
+                exito = (r==1);
+            }
+           
+        } catch (SQLException ex) {
+            System.err.printf("Excepción: '%s'%n",
+                    ex.getMessage());
+        }
+         return exito;
+    }
+    
      private static final String CMD_LISTAR
-            = "SELECT id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, usuario "
+            = "SELECT id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, estado, usuario "
             + "FROM bancoempleo.oferente ORDER BY id_oferente DESC; ";
+     
+     private static final String CMD_LISTAR_PENDIENTES
+            = "SELECT id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, estado, usuario "
+            + "FROM bancoempleo.oferente WHERE estado=0 ORDER BY id_oferente DESC; ";
+     
      
      private static final String CMD_AGREGAR
             = "INSERT INTO bancoempleo.oferente "
             + "(id_oferente, nombre_oferente, primer_apellido, nacionalidad, telefono, correo, residencia, usuario) "
             + "VALUES(?, ?, ?, ?, ?, ?, ?, ?); ";
+     
+     private static final String CMD_ACTUALIZAR
+            = "UPDATE oferente SET estado=? WHERE id_oferente=?;";
      
     private static ConjuntoOferentes instancia = null;
 }

@@ -6,6 +6,7 @@
 package servicios;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,7 @@ public class RegistroRequerimientos1 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        modelo.Elementos.administrador_trabajando=0;//Se asegura que el admi no este trabajando
         int opcion, eleccion;
         try {
             opcion = Integer.parseInt(request.getParameter("opcionR"));

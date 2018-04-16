@@ -11,39 +11,56 @@
         <meta charset=UTF-8">
         <title>Pagina de Tablas</title>
         <link href="css/default.css" rel="stylesheet" type="text/css"/>
-        
     </head>
     <body>
-        <h1>Prueba</h1>
+        <h1 style="text-align: center">Prueba Base de Datos</h1>
         <p>
-        <%= modelo.DAO.ConjuntoEmpresas.obtenerInstancia().toStringHTML()  %>
+            <h2>Empresas</h2>
+            <%= modelo.DAO.ConjuntoEmpresas.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoAdministradores.obtenerInstancia().toStringHTML()  %>
+            <h2>Administradores</h2>
+            <%= modelo.DAO.ConjuntoAdministradores.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoCategorias.obtenerInstancia().toStringHTML()  %>
+            <h2>Habilidades</h2>
+            <%= modelo.DAO.ConjuntoHabilidades.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoHabilidades.obtenerInstancia().toStringHTML()  %>
+            <h2>Oferentes</h2>
+            <%= modelo.DAO.ConjuntoOferentes.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoOferentes.obtenerInstancia().toStringHTML()  %>
+            <h2>Puestos</h2>
+            <%= modelo.DAO.ConjuntoPuestos.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoPuestos.obtenerInstancia().toStringHTML()  %>
+            <h2>Requerimientos</h2>
+            <%= modelo.DAO.ConjuntoRequerimientos.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoRequerimientos.obtenerInstancia().toStringHTML()  %>
+            <h2>SubCategorias</h2>
+            <%= modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoSubCategorias.obtenerInstancia().toStringHTML()  %>
+            <h2>Categorias</h2>
+            <%= modelo.DAO.ConjuntoCategorias.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <p>
-        <%= modelo.DAO.ConjuntoUsuarios.obtenerInstancia().toStringHTML()  %>
+            <h2>Usuario</h2>
+            <%= modelo.DAO.ConjuntoUsuarios.obtenerInstancia().toStringHTML()%>
+            <br/><br/>
         </p>
         <section>
             <a href="Principal.jsp">Regresar</a>
         </section>
-    </body>
+</body>
 </html>

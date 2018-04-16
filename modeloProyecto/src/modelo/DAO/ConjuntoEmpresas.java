@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.Empresa;
 
 /**
@@ -69,8 +71,9 @@ public class ConjuntoEmpresas implements Serializable{
                     String descripcion = rs.getString("descripcion");
                     String clave = rs.getString("clave");
                     java.util.Date fecha = new java.util.Date(rs.getTimestamp("fecha_registro").getTime());
+                    int estado = rs.getInt("estado");
                     int usuario = rs.getInt("usuario");
-                    empresas.add(new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, usuario));
+                    empresas.add(new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, estado,usuario));
                 }
             }
             return empresas;
@@ -80,9 +83,37 @@ public class ConjuntoEmpresas implements Serializable{
         return empresas;
     }
 
+    public List<Empresa> obtenerEmpresasPendientes(){
+        List<Empresa> empresas = new ArrayList<>();
+        try{
+            try(Connection cnx = GestorBD.obtenerInstancia().obtenerConexion();
+                    Statement stm = cnx.createStatement();
+                    ResultSet rs = stm.executeQuery(CMD_LISTAR_PENDIENTES)){
+                
+                while(rs.next()){
+                    int id_empresa = rs.getInt("id_empresa");
+                    String nombre = rs.getString("nombre_empresa");
+                    String localizacion = rs.getString("localizacion");
+                    String correo = rs.getString("correo");
+                    int telefono = rs.getInt("telefono");
+                    String descripcion = rs.getString("descripcion");
+                    String clave = rs.getString("clave");
+                    java.util.Date fecha = new java.util.Date(rs.getTimestamp("fecha_registro").getTime());
+                    int estado = rs.getInt("estado");
+                    int usuario = rs.getInt("usuario");
+                    empresas.add(new Empresa(id_empresa, nombre, localizacion, correo, telefono, descripcion, clave, fecha, estado,usuario));
+                }
+            }
+            return empresas;
+        }catch (SQLException ex) {
+            System.err.printf("Excepción: '%s'\n", ex.getMessage());
+        }
+        return empresas;
+    }
+    
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("\n<table>");
+        r.append("\n<table class=\"tabla\">");
         r.append("\n<thead><tr>");
         r.append(Empresa.encabezadosHTML());
         r.append("\n</tr></thead>");
@@ -98,15 +129,65 @@ public class ConjuntoEmpresas implements Serializable{
         return r.toString();
     }
     
+    public String toStringHTMLPendientes() {
+        StringBuilder r = new StringBuilder();
+        r.append("\n<table class=\"tabla\">");
+        r.append("\n<thead><tr>");
+        r.append(Empresa.encabezadosHTML());
+        r.append("\n</tr></thead>");
+        r.append("\n<tbody>");
+        for (Empresa e : obtenerEmpresasPendientes()) {
+            r.append(String.format(
+                    "\n\t<tr>%s</tr>",
+                    e.toStringHTML())
+            );
+        }
+        if(obtenerEmpresasPendientes().isEmpty()){
+            r.append("\n<tr>");
+            r.append("\n<td>No hay Empresas Pendientes</td>");
+            r.append("\n</tr>");
+        }
+        r.append("\n</tbody>");
+        r.append("\n</table>");
+        return r.toString();
+    }
+    
+    
+    public boolean autorizar(int id, int estado) {
+        boolean exito = false;
+        try {  
+            try(Connection cnx = GestorBD.obtenerInstancia().obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR)){
+                stm.clearParameters();
+                stm.setInt(1, estado);
+                stm.setInt(2, id);
+
+                int r = stm.executeUpdate();
+                exito = (r==1);
+            }
+           
+        } catch (SQLException ex) {
+            System.err.printf("Excepción: '%s'%n",
+                    ex.getMessage());
+        }
+         return exito;
+    }
+    
     private static final String CMD_LISTAR
-            = "SELECT id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro, usuario "
+            = "SELECT id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro, estado, usuario "
             + "FROM bancoempleo.empresa ORDER BY id_empresa DESC; ";
+    
+    private static final String CMD_LISTAR_PENDIENTES
+            = "SELECT id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro, estado, usuario "
+            + "FROM bancoempleo.empresa WHERE estado=0 ORDER BY id_empresa DESC; ";
     
     private static final String CMD_AGREGAR
             = "INSERT INTO bancoempleo.empresa "
             + "(id_empresa, nombre_empresa, localizacion, correo, telefono, descripcion, clave, fecha_registro, usuario) "
             + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 
+    private static final String CMD_ACTUALIZAR
+            = "UPDATE empresa SET estado=? WHERE id_empresa=?;";
 
     private static ConjuntoEmpresas instancia = null;
 }

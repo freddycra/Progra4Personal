@@ -37,27 +37,32 @@ public class RegistroRequerimientos2 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nombre = request.getParameter("nombreS");
-        int dominio = Integer.parseInt(request.getParameter("dominioS"));
-        
-        int id_subCategoria = (ConjuntoSubCategorias.obtenerInstancia().obtenerMayorId() +1);
-        
-        int categoria;
-        if(modelo.Elementos.id_Categoria_Requerido ==0){//Se creo una nueva Categoria
-        categoria = (ConjuntoCategorias.obtenerInstancia().obtenerMayorId());}
-        else{
-            categoria = modelo.Elementos.id_Categoria_Requerido;//Se eligio una de las categorias existentes
+        int id_subCategoria = (ConjuntoSubCategorias.obtenerInstancia().obtenerMayorId() + 1);
+
+        if (modelo.Elementos.administrador_trabajando == 0) {
+            int dominio = Integer.parseInt(request.getParameter("dominioS"));
+            int categoria;
+            if (modelo.Elementos.id_Categoria_Requerido == 0) {//Se creo una nueva Categoria
+                categoria = (ConjuntoCategorias.obtenerInstancia().obtenerMayorId());
+            } else {
+                categoria = modelo.Elementos.id_Categoria_Requerido;//Se eligio una de las categorias existentes
+            }
+
+            int puesto = (ConjuntoPuestos.obtenerInstancia().obtenerMayorId());
+
+            SubCategoria c = new SubCategoria(id_subCategoria, nombre, categoria);
+            ConjuntoSubCategorias.obtenerInstancia().agregar(c);
+
+            //Ahora se crea el nuevo requerimientol
+            Requerimientos r = new Requerimientos(puesto, id_subCategoria, dominio);
+            ConjuntoRequerimientos.obtenerInstancia().agregar(r);
+
+            response.sendRedirect("ContinuarRequerimientos.jsp");
+        }else{
+            SubCategoria c = new SubCategoria(id_subCategoria, nombre, modelo.Elementos.id_Categoria_Requerido);
+            ConjuntoSubCategorias.obtenerInstancia().agregar(c);
+            response.sendRedirect("Administrador.jsp");
         }
-        
-        int puesto = (ConjuntoPuestos.obtenerInstancia().obtenerMayorId());
-        
-        SubCategoria c = new SubCategoria(id_subCategoria, nombre, categoria);
-        ConjuntoSubCategorias.obtenerInstancia().agregar(c);
-        
-        //Ahora se crea el nuevo requerimientol
-        Requerimientos r = new Requerimientos(puesto, id_subCategoria, dominio);
-        ConjuntoRequerimientos.obtenerInstancia().agregar(r);
-        
-        response.sendRedirect("ContinuarRequerimientos.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

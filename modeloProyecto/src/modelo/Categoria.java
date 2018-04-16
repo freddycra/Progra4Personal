@@ -34,13 +34,15 @@ public class Categoria {
     
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th>Nombre Categoria</th>");
+        r.append("<th class=\"encabezado\">Id Categoria</th>");
+        r.append("<th class=\"encabezado\">Nombre Categoria</th>");
         return r.toString();
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td>%s</td>", nombre_categoria));
+        r.append(String.format("<td class=\"campo\">%d</td>", id_categoria));
+        r.append(String.format("<td class=\"campo\">%s</td>", nombre_categoria));
         return r.toString();
     }
     

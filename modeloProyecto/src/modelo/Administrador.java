@@ -46,21 +46,29 @@ public class Administrador {
         this.usuario = usuario;
     }
     
+    public String convertirUsuario(){
+        if(usuario==1){
+            return "Administrador";
+        }else{
+            return "Desconocido";
+        }
+    }
+    
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th>Id Administrador</th>");
-        r.append("<th>Nombre Administrador</th>");
-        r.append("<th>Clave</th>");
-        r.append("<th>Tipo Usuario</th>");
+        r.append("<th class=\"encabezado\">Id Administrador</th>");
+        r.append("<th class=\"encabezado\">Nombre Administrador</th>");
+        r.append("<th class=\"encabezado\">Clave</th>");
+        r.append("<th class=\"encabezado\">Tipo Usuario</th>");
         return r.toString();
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td>%d</td>", id_administrador));
-        r.append(String.format("<td>%s</td>", nombre_administrador));
-        r.append(String.format("<td>%s</td>", clave));
-        r.append(String.format("<td>%d</td>", usuario));
+        r.append(String.format("<td class=\"campo\">%d</td>", id_administrador));
+        r.append(String.format("<td class=\"campo\">%s</td>", nombre_administrador));
+        r.append(String.format("<td class=\"campo\">%s</td>", clave));
+        r.append(String.format("<td class=\"campo\">%s</td>", convertirUsuario()));
         return r.toString();
     }
     

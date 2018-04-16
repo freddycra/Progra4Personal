@@ -43,17 +43,17 @@ public class Habilidades {
     
     public static String encabezadosHTML() {
         StringBuilder r = new StringBuilder();
-        r.append("<th>Id_Oferente</th>");
-        r.append("<th>SubCategoria</th>");
-        r.append("<th>Nivel de Dominio</th>");
+        r.append("<th class=\"encabezado\">Id_Oferente</th>");
+        r.append("<th class=\"encabezado\">SubCategoria</th>");
+        r.append("<th class=\"encabezado\">Nivel de Dominio</th>");
         return r.toString();
     }
     
     public String toStringHTML() {
         StringBuilder r = new StringBuilder();
-        r.append(String.format("<td>%d</td>", oferente));
-        r.append(String.format("<td>%d</td>", subCategoria));
-        r.append(String.format("<td>%d</td>", nivel));
+        r.append(String.format("<td class=\"campo\">%d</td>", oferente));
+        r.append(String.format("<td class=\"campo\">%d</td>", subCategoria));
+        r.append(String.format("<td class=\"campo\">%d</td>", nivel));
         return r.toString();
     }
     

@@ -11,7 +11,7 @@
             <header></header>
             <div id="contents">
                 <h1>Bienvenido a la página de integración de requerimientos....!</h1>
-                <form id="formulario1" action="Servicio1" method="GET">
+                <form id="formulario1" action="RegistroRequerimientos1" method="GET">
                     <table id="tablaFormulario">
                         <thead>
                             <tr>
@@ -20,11 +20,25 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="etiqueta">Provincia:</td>
+                                <td class="etiqueta">Categorias para requerimiento:</td>
                                 <td class="campo">
-                                    <select id="provincia" name="provincia" size="1">
+                                    <select id="categorias" name="categorias" size="1">
                                         <%= modelo.DAO.ConjuntoCategorias.menuCategoriasHTML() %>
                                     </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Opciones</td>
+                                <td>
+                                    <input type="radio" id="opcion_00" name="opcionR" value="1" />
+                                    <label for="opcion_00">Elegir Categoria</label><br />
+                                    <input type="radio" id="opcion_01" name="opcionR" value="2" />
+                                    <label for="opcion_01">Crear Nueva Categoria</label><br />
+                                </td>
+                            </tr>
+                             <tr>
+                                <td colspan="2" class="controles">
+                                    <input type="submit" value="Enviar" />
                                 </td>
                             </tr>
                         </tbody>
@@ -32,7 +46,6 @@
                 </form>
                 <section>
                     <a href="prueba.jsp">Regresar</a>
-
 
                     <% int variable = modelo.DAO.ConjuntoPuestos.obtenerInstancia().obtenerMayorId();%>
                     <p>

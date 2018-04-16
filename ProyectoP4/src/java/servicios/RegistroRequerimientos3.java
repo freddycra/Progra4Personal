@@ -49,7 +49,7 @@ public class RegistroRequerimientos3 extends HttpServlet {
             ConjuntoRequerimientos.obtenerInstancia().agregar(r);
             response.sendRedirect("ContinuarRequerimientos.jsp");
         } else if (opcion == 2) {
-            response.sendRedirect("CrearSubCategoria.jsp");
+            response.sendRedirect("CrearRequerimiento.jsp");
         } else {
             response.sendRedirect("Empresa.jsp");
             //Deberia eliminar el ultimo puesto...

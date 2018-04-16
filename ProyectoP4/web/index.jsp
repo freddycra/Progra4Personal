@@ -21,7 +21,7 @@
             %>
             <div id="contents">
                 <p>
-                    (Esta pagina se redirige automaticamente a la aplicacion bolsa de empleos...)
+                    (Esta pagina se redirige automaticamente a la aplicacion calculador de prestamos...)
                 </p>
             </div>
             <footer></footer>
